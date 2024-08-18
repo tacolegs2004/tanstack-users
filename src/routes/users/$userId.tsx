@@ -1,11 +1,13 @@
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, notFound } from "@tanstack/react-router";
 import { IUsers } from "../../types";
 
 const getUser = async (userId: string): Promise<IUsers> => {
-	return fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
-		.then((resp) => resp.json())
-		.catch((err) => console.error(err));
+	return await fetch(
+		`https://jsonplaceholder.typicode.com/users/${userId}`
+	).then((resp) => {
+		return resp.ok ? resp.json() : Promise.reject(resp.statusText);
+	});
 };
 
 const userOptions = (userId: string) =>
@@ -22,14 +24,25 @@ export const Route = createFileRoute("/users/$userId")({
 		};
 	},
 	loader: async ({ context }) => {
-		await context.queryClient.ensureQueryData(context.getUserOptions);
+		try {
+			await context.queryClient.ensureQueryData(context.getUserOptions);
+		} catch (_) {
+			throw notFound();
+		}
 	},
 	pendingComponent: () => (
 		<div className='grid place-items-center'>
 			<p>Customize this /users/$userId loading...</p>
 		</div>
 	),
+	notFoundComponent: NotFoundComp,
 });
+
+function NotFoundComp() {
+	const id = Route.useParams({ select: (s) => s.userId });
+
+	return `User with id ${id} not found, you can implement your own 404 page or UI to handle resetting this page`;
+}
 
 function User() {
 	const getUserOptions = Route.useRouteContext({

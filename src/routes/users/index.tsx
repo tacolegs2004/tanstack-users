@@ -1,5 +1,5 @@
 import React from "react";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { z } from "zod";
 import { IUsers } from "../../types";
 
@@ -16,6 +16,10 @@ export const Route = createFileRoute("/users/")({
 			`https://jsonplaceholder.typicode.com/users?username_like=${name}`
 		).then((res) => res.json())) as IUsers[];
 
+		if (users.length === 0) {
+			throw notFound();
+		}
+
 		return {
 			users,
 		};
@@ -25,11 +29,15 @@ export const Route = createFileRoute("/users/")({
 			<p>Customize this /users loading...</p>
 		</div>
 	),
+	notFoundComponent: () =>
+		"Users not found, you can implement your own 404 page or UI to handle resetting this page",
 });
 
 function Users() {
 	const users = Route.useLoaderData({ select: (s) => s.users });
 	const navigate = Route.useNavigate();
+
+	const name = Route.useSearch({ select: (s) => s.name ?? "" });
 
 	const fetchUsers = (evt: React.FormEvent<HTMLFormElement>) => {
 		evt.preventDefault();
@@ -43,7 +51,12 @@ function Users() {
 			<h1>Users</h1>
 
 			<form onSubmit={fetchUsers}>
-				<input type='text' placeholder='Find users' name='username' />
+				<input
+					type='text'
+					placeholder='Find users'
+					name='username'
+					defaultValue={name}
+				/>
 			</form>
 
 			<ul className='grid gap-4'>
