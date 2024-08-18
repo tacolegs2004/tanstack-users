@@ -11,26 +11,35 @@ import { routeTree } from "./routeTree.gen";
 const queryClient = new QueryClient();
 
 // Create a new router instance
-const router = createRouter({ routeTree });
+const router = createRouter({
+	routeTree,
+	context: {
+		queryClient,
+	},
+	Wrap(props) {
+		return (
+			<QueryClientProvider client={queryClient}>
+				{props.children}
+				<ReactQueryDevtools initialIsOpen={false} />
+			</QueryClientProvider>
+		);
+	},
+});
 
 // Register the router instance for type safety
 declare module "@tanstack/react-router" {
-  interface Register {
-    router: typeof router;
-  }
+	interface Register {
+		router: typeof router;
+	}
 }
 
 // Render the app
 const rootElement = document.getElementById("root")!;
 if (!rootElement.innerHTML) {
-  const root = ReactDOM.createRoot(rootElement);
-  root.render(
-    <StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </StrictMode>,
-  );
+	const root = ReactDOM.createRoot(rootElement);
+	root.render(
+		<StrictMode>
+			<RouterProvider router={router} />
+		</StrictMode>
+	);
 }
