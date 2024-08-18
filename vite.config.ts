@@ -6,9 +6,13 @@ import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    TanStackRouterVite(),
-    viteReact(),
-    // ...,
-  ],
+	plugins: [
+		TanStackRouterVite({
+			experimental: {
+				enableCodeSplitting: true,
+			},
+		}),
+		viteReact(),
+		// ...,
+	],
 });
