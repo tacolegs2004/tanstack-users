@@ -4,7 +4,7 @@ import { z } from "zod";
 import { IUsers } from "../../types";
 
 export const Route = createFileRoute("/users/")({
-	component: () => <Users />,
+	component: Users,
 	validateSearch: z.object({
 		name: z.string().optional(),
 	}),
