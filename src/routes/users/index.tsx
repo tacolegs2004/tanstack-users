@@ -34,16 +34,15 @@ export const Route = createFileRoute("/users/")({
 });
 
 function Users() {
+	const name = Route.useSearch({ select: (s) => s.name || "" });
 	const users = Route.useLoaderData({ select: (s) => s.users });
 	const navigate = Route.useNavigate();
-
-	const name = Route.useSearch({ select: (s) => s.name ?? "" });
 
 	const fetchUsers = (evt: React.FormEvent<HTMLFormElement>) => {
 		evt.preventDefault();
 		const username = evt.currentTarget.username.value || "";
 
-		navigate({ search: { name: username } });
+		navigate({ search: (s) => ({ ...s, name: username }) });
 	};
 
 	return (
