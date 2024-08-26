@@ -6,7 +6,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="flex h-screen w-full flex-col items-center justify-center gap-4 text-center text-5xl font-bold text-slate-200">
+    <div className="flex h-screen w-full flex-col items-center justify-center gap-4 text-center text-5xl font-bold text-[#5196F6]">
       <h1>Welcome to the React Router example</h1>
 
       <h1>
