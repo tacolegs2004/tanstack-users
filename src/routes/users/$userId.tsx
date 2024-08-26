@@ -62,6 +62,8 @@ function User() {
     <div className="flex flex-col items-center justify-center">
       <span className="flex h-[360px] w-screen flex-col items-center justify-end bg-gradient-to-r from-slate-500 to-slate-400 text-5xl font-bold text-white">
         <h1 className="text-3xl font-bold">{userQuery.data?.name}</h1>
+
+        <p>test</p>
       </span>
     </div>
   );
