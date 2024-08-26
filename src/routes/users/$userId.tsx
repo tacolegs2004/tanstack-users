@@ -41,8 +41,6 @@ export const Route = createFileRoute("/users/$userId")({
 });
 
 function NotFoundComp() {
-  const id = Route.useParams({ select: (s) => s.userId });
-
   return (
     <div className="flex flex-col items-center justify-center">
       <section className="flex h-[50%] w-screen flex-col items-center justify-start bg-gradient-to-r from-slate-500 to-slate-400 text-5xl font-bold text-white">
