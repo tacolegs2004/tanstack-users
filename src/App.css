@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 body {
-  @apply bg-gradient-to-r from-yellow-400 to-sky-500;
+  @apply bg-gradient-to-r from-[#36F1CD] to-[#78D5D7];
 }

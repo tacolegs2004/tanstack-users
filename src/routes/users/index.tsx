@@ -50,7 +50,7 @@ function Users() {
     <div className="flex flex-col items-center justify-center gap-4">
       <form onSubmit={fetchUsers}>
         <input
-          className="h-12 rounded-lg border-2 border-gray-100 bg-slate-800 p-4 text-center text-gray-100"
+          className="h-12 rounded-lg border-2 border-gray-100 bg-transparent p-4 text-center text-gray-700"
           type="text"
           placeholder="Find users"
           name="username"
@@ -64,14 +64,14 @@ function Users() {
         {users.map((user) => (
           <li
             key={user.id}
-            className="flex items-center gap-2 rounded-lg bg-slate-800 p-4 text-center text-gray-100"
+            className="flex items-center gap-2 rounded-lg bg-[#2fcfaf] p-4 text-center text-slate-200"
           >
             <Link
               to={`/users/$userId`}
               params={{ userId: user.id }}
               className="flex items-center gap-2"
             >
-              <h2>{user.name}</h2>
+              <h2 className="font-semibold">{user.name}</h2>
               <b>@{user.username}</b>
             </Link>
           </li>

@@ -11,7 +11,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   {
     component: () => (
       <>
-        <nav className="sticky mx-10 mb-12 mt-4 flex items-center justify-center gap-4 rounded-md bg-none text-center text-3xl font-semibold text-violet-600 md:mx-auto md:w-fit">
+        <nav className="sticky mx-10 mb-12 mt-4 flex items-center justify-center gap-4 rounded-md bg-none text-center text-3xl font-semibold text-[#EF767A] md:mx-auto md:w-fit">
           {[
             ["Home", "/"],
             ["Users", "/users"],
@@ -19,7 +19,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           ].map(([title, url]) => (
             <Link
               to={url}
-              className="[& rounded-lg px-12 py-2 duration-200 hover:scale-105 hover:text-violet-400 [&.active]:bg-[#E8D7FF]"
+              className="[& rounded-lg px-12 py-2 duration-200 hover:scale-105 hover:text-violet-400 [&.active]:bg-[#31AFD4]"
             >
               {title}
             </Link>
